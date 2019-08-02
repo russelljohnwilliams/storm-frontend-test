@@ -1,12 +1,18 @@
-$font-size: 1.1rem;
+$font-stack: 'Roboto', sans-serif;
+
+$font-size: 1rem;
 
 $colors: mistyrose, cornsilk, aliceblue;
 
 $border-colors: lightpink, navajowhite, #b3e6fb;
 
-$tickbox-size: 40px;
+$border-top-bottom: solid black 7px;
 
-$list-width: 45%;
+$tickbox-size: 30px;
+
+$list-width: 95%;
+
+$list-max-width: 375px;
 
 @for $i from 1 through length($colors) {
  .imp-#{$i}  {
@@ -16,22 +22,33 @@ $list-width: 45%;
 }
 
 body{
+  font: 100% $font-stack;
   background: snow;
+  margin: 0;
 }
 
 
 header{
-  border-top: solid black 10px;
+  border-top: $border-top-bottom;
   padding: 40px 0;
-  font-size: 1.5rem;
+  font-size: 0.9rem;
+}
+
+footer, header{
   margin-left: auto;
   margin-right: auto;
   width: $list-width;
+  max-width: $list-max-width;
 }
 
+footer{
+  text-align: right;
+  font-size: 0.8rem;
+}
 
 #list{
   width: $list-width;
+  max-width: $list-max-width;
   margin-left: auto;
   margin-right: auto;
   padding: 0;
@@ -39,11 +56,14 @@ header{
 
 ul{
   list-style-type: none;
+  height: 75vh;
+  border-bottom: $border-top-bottom;
 }
 
 li{
   padding: 8px 0;
   margin: 6px 0;
+  font-weight: 600;
 }
 
 button{
@@ -64,15 +84,26 @@ button:focus, textarea {
 
 #addItem{
   float: right;
-  width: 150px;
-  height: 50px;
+  width: 115px;
+  height: 35px;
   border-radius: 35px;
   font-size: 1rem;
+  padding: 0;
+
 }
 
 .title, h1{
   display: inline-flex;
   margin: 0;
+}
+
+h1{
+  padding: 0 20px; 
+}
+
+.tick-box,{
+  font-size: $font-size;
+  font-weight: 600;
 }
 
 
