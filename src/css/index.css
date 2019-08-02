@@ -1,0 +1,62 @@
+.imp-1 {
+  background: mistyrose;
+  border-left: 5px solid lightpink; }
+
+.imp-2 {
+  background: cornsilk;
+  border-left: 5px solid navajowhite; }
+
+.imp-3 {
+  background: aliceblue;
+  border-left: 5px solid #b3e6fb; }
+
+body {
+  background: snow; }
+
+header {
+  border-top: solid black 10px;
+  padding: 40px 0;
+  font-size: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%; }
+
+#list {
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0; }
+
+ul {
+  list-style-type: none; }
+
+li {
+  padding: 8px 0;
+  margin: 6px 0; }
+
+button {
+  display: inline-block;
+  margin: 0 10px;
+  -webkit-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.28);
+  -moz-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.28);
+  box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 0;
+  height: 40px;
+  width: 40px; }
+
+button:focus, textarea {
+  outline: none !important; }
+
+#addItem {
+  float: right;
+  width: 150px;
+  height: 50px;
+  border-radius: 35px;
+  font-size: 1rem; }
+
+.title, h1 {
+  display: inline-flex;
+  margin: 0; }
+
+/*# sourceMappingURL=index.css.map */
