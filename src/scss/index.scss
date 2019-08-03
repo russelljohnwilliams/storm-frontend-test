@@ -14,17 +14,10 @@ $list-width: 95%;
 
 $list-max-width: 375px;
 
-$loader-border: top, right, bottom, left;
 
-$loader-1: 3px solid white;
-$loader-2: 3px solid white;
-
-@for $i from 1 through length($colors) {
- .imp-#{$i}  {
-  background: nth($colors, $i);
-  border-left: 5px solid nth($border-colors, $i);
-}
-}
+// ==============
+// static content
+// ==============
 
 body{
   font: 100% $font-stack;
@@ -32,13 +25,21 @@ body{
   margin: 0;
 }
 
-
 header{
   border-top: $border-top-bottom;
   padding-top: 25px;
   min-height: 95px;
   font-size: 0.9rem;
   position: relative;
+}
+
+.title, h1{
+  display: inline-flex;
+  margin: 0;
+}
+
+h1{
+  padding: 0 20px; 
 }
 
 footer, header, #loader-wrapper, #list{
@@ -53,108 +54,9 @@ footer{
   font-size: 0.8rem;
 }
 
-#list{
-  margin-top: 0;
-  padding: 0;
-}
-
-ul{
-  list-style-type: none;
-  height: 75vh;
-  border-bottom: $border-top-bottom;
-}
-
-li, #new-item{
-  padding: 8px 0;
-  margin: 6px 0;
-  font-weight: 600;
-}
-
-#new-item{
-  position: absolute;
-  bottom: 0;
-  width: calc(100% - 5px);
-  background: lightgrey;
-  border-left: 5px solid grey;
-  margin: 0;
-  input, #importance-selector{
-    height: 30px;
-    border: none;
-    background: none;
-    padding-left: 15px;
-    font-size: 1rem;
-    color: grey;
-  }
-}
-
-#add-new-item-button{
-  float: right;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: 600;
-  background: whitesmoke;
-}
-
-#importance-selector{
-  float: right;
-  border-radius: 25px;
-  border: none;
-}
-
-button:focus, input, #importance-selector {
-  outline: none !important;
-}
-
-button{
-  display: inline-block;
-  margin: 0 10px;
-  -webkit-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.28);
-  -moz-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.28);
-  box-shadow: 0px 4px 7px -1px rgba(0,0,0,0.2);
-  border: none;
-  padding: 0;
-  height: $tickbox-size;
-  width: $tickbox-size;
-}
-
-button:focus, textarea {
-  outline: none !important;
-}
-
-#add-item-button{
-  float: right;
-  width: 115px;
-  height: 35px;
-  border-radius: 35px;
-  font-size: 1rem;
-  padding: 0;
-} 
-
-.title, h1{
-  display: inline-flex;
-  margin: 0;
-}
-
-h1{
-  padding: 0 20px; 
-}
-
-.tick-box,{
-  font-size: $font-size;
-  font-weight: 600;
-  color: white;
-}
-
-.checked{
-  color: grey;
-
-  .tick-box{
-    color: black;
-  }
-}
-
-
-// spinning wheel loader
+// ======
+// Loader
+// ======
 
 #loader {
   opacity: 1;
@@ -186,6 +88,138 @@ h1{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+// =============
+// list of tasks
+// =============
+
+@for $i from 1 through length($colors) {
+ .imp-#{$i}  {
+  background: nth($colors, $i);
+  border-left: 5px solid nth($border-colors, $i);
+  }
+}
+
+#list{
+  margin-top: 0;
+  padding: 0;
+}
+
+ul{
+  list-style-type: none;
+  min-height: 75vh;
+  border-bottom: $border-top-bottom;
+}
+
+li, #new-item{
+  padding: 8px 0;
+  margin: 6px 0;
+  font-weight: 600;
+  opacity: 1;
+  transition: opacity 100ms linear;
+}
+
+// =========
+// check box
+// =========
+
+.tick-box,{
+  font-size: $font-size;
+  font-weight: 600;
+  color: white;
+}
+
+.checked{
+  color: grey;
+
+  .tick-box{
+    color: black;
+  }
+}
+
+// ===========
+// buttons etc
+// ===========
+
+button:focus, input, #importance-selector {
+  outline: none !important;
+}
+
+button{
+  display: inline-block;
+  margin: 0 10px;
+  -webkit-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.28);
+  -moz-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.28);
+  box-shadow: 0px 4px 7px -1px rgba(0,0,0,0.2);
+  border: none;
+  padding: 0;
+  height: $tickbox-size;
+  width: $tickbox-size;
+}
+
+button:focus, textarea {
+  outline: none !important;
+}
+
+.delete-button{
+  background: white;
+}
+
+
+// =================
+// create a new task
+// input area
+// =================
+
+#new-item{
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 5px);
+  background: lightgrey;
+  border-left: 5px solid grey;
+  margin: 0;
+  opacity: 1;
+  transition: opacity 299ms linear;
+  input, #importance-selector{
+    height: 30px;
+    border: none;
+    background: none;
+    padding-left: 15px;
+    font-size: 1rem;
+    color: grey;
+  }
+}
+
+#add-new-item-button, .delete-button{
+  float: right;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: whitesmoke;
+}
+
+#importance-selector{
+  float: right;
+  border-radius: 25px;
+  border: none;
+}
+
+#add-item-button{
+  float: right;
+  width: 115px;
+  height: 35px;
+  border-radius: 35px;
+  font-size: 1rem;
+  padding: 0;
+  opacity: 1;
+  transition: opacity 299ms linear;
+} 
+
+
+
+
+
+
 
 
 

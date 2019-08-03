@@ -11,14 +11,16 @@ window.onload = function(){
   createButtonToAddAnItem()
 }
 
-
-
 function getData(check) {
   fetch(url)
   .then(response => response.json())
   .then(data => {
-    sortByImportance(data)
-  })
+    if (check == 'new'){
+      removeElements(data) 
+    }else{
+      sortByImportance(data)
+    }
+  });
 }
 
 function sortByImportance(data) {
@@ -31,10 +33,10 @@ function sortByImportance(data) {
 function fadeElementsOnLoad(data) {
   var i = 0;
   var x = data.length
-  var intr = setInterval(function() {
+  var interval = setInterval(function() {
     displayTask(data[i]);
     i++
-    if (i == x ) clearInterval(intr);
+    if (i == x ) clearInterval(interval);
   }, 100)
 }
 
@@ -50,6 +52,7 @@ function displayTask(data) {
   addTextToList(li, title);
   removeLoader()
   checkIsDone(li, data)
+  createDeleteButton(li)
 }
 
 function addTextToList(li, title) {
@@ -136,10 +139,10 @@ function addNewItem() {
   createInput()
   createDoneButton()
   createSelectBox()
-  hideAddItemButton()
+  removeAnElement(this)
   done()
 }
-  
+
 function addANewItem() {
   var header = document.getElementsByTagName('header')[0]
   var newItem = header.appendChild(document.createElement('div'))
@@ -181,9 +184,11 @@ function createSelectBox() {
   }
 }
 
-function hideAddItemButton(argument) {
-  var button = document.getElementById('add-item-button')
-  button.remove()
+function removeAnElement(element){
+  element.style.opacity = 0
+  setTimeout(function(){ 
+  element.remove()
+  }, 300);
 }
 
 // ============================
@@ -191,13 +196,15 @@ function hideAddItemButton(argument) {
 // ============================
 
 function done() {
-document.getElementById("add-new-item-button").addEventListener("click", function(){
-  text = document.getElementById("textInput")
-  importance = document.getElementById("importance-selector")
-  data.title = text.value;
-  data.importance = importance.value
-  addTask(text, importance.value)
-});
+  document.getElementById("add-new-item-button").addEventListener("click", function(){
+    text = document.getElementById("textInput");
+    importance = document.getElementById("importance-selector");
+    data.title = text.value;
+    data.importance = importance.value;
+    addTask(text, importance.value);
+    removeAnElement(this.parentNode)
+    createButtonToAddAnItem()
+  });
 }
 
 
@@ -222,10 +229,59 @@ function addTask(text, imp){
 } 
 
 
+// ===========
+// DELETE TASK 
+// =========== 
 
+function createDeleteButton(li){
+  var button = li.appendChild(document.createElement('button'));
+  button.innerHTML = "✕";
+  button.setAttribute("class", 'delete-button');
+  button.setAttribute("onclick", deleteItem);
+  button.onclick = deleteItem;
+}
 
+function deleteItem(){
+  deleteData(this.parentNode.id)
+  removeElements(this)
+}
 
+function deleteData(value){
+  var deleteData = { 
+    method: 'DELETE', 
+    body: JSON.stringify({
+      id: value
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+  fetch( url+'/'+value, deleteData)
+  .then(response => response.json()
+    )
+  .catch(error => console.log('error is', error)
+    )
+} 
 
+function removeElements(item) {
+  var num = list.childNodes.length
+  var i = 0;
+  var interval = setInterval(function() {
+    list.childNodes[i].style.opacity = "0"
+    i++
+    if (i == num) clearInterval(interval);
+  }, 100)
+  setTimeout(function(){ 
+    deleteElements(num)
+  }, num * 110);
+}
+
+function deleteElements(num){
+ for(var i = num - 1; i >= 0; i--){
+  list.childNodes[i].remove()
+}
+getData()
+}
 // {
 //   console && console.log('%c careers@stormid.com ', 'background: #272727; color: #ffffff');
 // }
