@@ -17,10 +17,16 @@ function getData(check) {
   fetch(url)
   .then(response => response.json())
   .then(data => {
-    fadeElementsOnLoad(data);
+    sortByImportance(data)
   })
 }
 
+function sortByImportance(data) {
+  data.sort(function (a, b) {
+    return a.importance - b.importance;
+  });
+  fadeElementsOnLoad(data);
+}
 
 function fadeElementsOnLoad(data) {
   var i = 0;
