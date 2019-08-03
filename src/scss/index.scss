@@ -14,6 +14,11 @@ $list-width: 95%;
 
 $list-max-width: 375px;
 
+$loader-border: top, right, bottom, left;
+
+$loader-1: 3px solid white;
+$loader-2: 3px solid white;
+
 @for $i from 1 through length($colors) {
  .imp-#{$i}  {
     background: nth($colors, $i);
@@ -34,7 +39,7 @@ header{
   font-size: 0.9rem;
 }
 
-footer, header{
+footer, header, #loader-wrapper{
   margin-left: auto;
   margin-right: auto;
   width: $list-width;
@@ -89,7 +94,6 @@ button:focus, textarea {
   border-radius: 35px;
   font-size: 1rem;
   padding: 0;
-
 }
 
 .title, h1{
@@ -105,5 +109,49 @@ h1{
   font-size: $font-size;
   font-weight: 600;
 }
+
+
+// spinning wheel loader
+
+
+
+#loader {
+  opacity: 1;
+  position: absolute;
+  left: calc(50% - 25px);
+  top: 30%;
+  display: inline-block;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  transition: opacity 1s;
+}
+
+
+#loader{
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: lightpink;
+  border-bottom-color: #b3e6fb;
+  border-left-color: navajowhite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+
 
 
