@@ -1,5 +1,11 @@
 const url = 'http://localhost:4000/api/task'
 
+var data = {
+  title: "",
+  isDone: "false",
+  importance: "",
+}
+
 window.onload = function(){
   getData();
   createButtonToAddAnItem()
@@ -14,6 +20,7 @@ function getData(check) {
     fadeElementsOnLoad(data);
   })
 }
+
 
 function fadeElementsOnLoad(data) {
   var i = 0;
@@ -105,9 +112,9 @@ function editIsDone(item, trueFalse){
     )
 }
 
-// ============
-// ADD NEW ITEM 
-// ============ 
+// ====================
+// ADD NEW ITEM - Build
+// ====================
 
 function createButtonToAddAnItem() {
   var header = document.getElementsByTagName('header')[0]
@@ -124,6 +131,7 @@ function addNewItem() {
   createDoneButton()
   createSelectBox()
   hideAddItemButton()
+  done()
 }
   
 function addANewItem() {
@@ -139,6 +147,7 @@ function createInput() {
   textBox.autofocus = true;
   textBox.setAttribute('placeholder', 'Type slowly')
   textBox.setAttribute('value', '')
+  textBox.id = "textInput"
 }
 
 function createDoneButton() {
@@ -171,6 +180,46 @@ function hideAddItemButton(argument) {
   button.remove()
 }
 
-{
-  console && console.log('%c careers@stormid.com ', 'background: #272727; color: #ffffff');
+// ============================
+// ADD NEW ITEM - functionality
+// ============================
+
+function done() {
+document.getElementById("add-new-item-button").addEventListener("click", function(){
+  text = document.getElementById("textInput")
+  importance = document.getElementById("importance-selector")
+  data.title = text.value;
+  data.importance = importance.value
+  addTask(text, importance.value)
+});
 }
+
+
+function addTask(text, imp){
+  var task = { 
+    method: 'POST', 
+    body: JSON.stringify({
+      title: text.value,
+      importance: imp
+    } ),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+  fetch(url, task
+    )
+  .then(response => response.json()
+    )
+  .then(getData('new')
+    )
+  .catch(error => console.log('error is', error))
+} 
+
+
+
+
+
+
+// {
+//   console && console.log('%c careers@stormid.com ', 'background: #272727; color: #ffffff');
+// }
