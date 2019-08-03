@@ -17,10 +17,12 @@ body {
 
 header {
   border-top: solid black 7px;
-  padding: 40px 0;
-  font-size: 0.9rem; }
+  padding-top: 25px;
+  min-height: 95px;
+  font-size: 0.9rem;
+  position: relative; }
 
-footer, header, #loader-wrapper {
+footer, header, #loader-wrapper, #list {
   margin-left: auto;
   margin-right: auto;
   width: 95%;
@@ -31,10 +33,7 @@ footer {
   font-size: 0.8rem; }
 
 #list {
-  width: 95%;
-  max-width: 375px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 0;
   padding: 0; }
 
 ul {
@@ -42,10 +41,40 @@ ul {
   height: 75vh;
   border-bottom: solid black 7px; }
 
-li {
+li, #new-item {
   padding: 8px 0;
   margin: 6px 0;
   font-weight: 600; }
+
+#new-item {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 5px);
+  background: lightgrey;
+  border-left: 5px solid grey;
+  margin: 0; }
+  #new-item input, #new-item #importance-selector {
+    height: 30px;
+    border: none;
+    background: none;
+    padding-left: 15px;
+    font-size: 1rem;
+    color: grey; }
+
+#add-new-item-button {
+  float: right;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: whitesmoke; }
+
+#importance-selector {
+  float: right;
+  border-radius: 25px;
+  border: none; }
+
+button:focus, input, #importance-selector {
+  outline: none !important; }
 
 button {
   display: inline-block;
@@ -61,7 +90,7 @@ button {
 button:focus, textarea {
   outline: none !important; }
 
-#addItem {
+#add-item-button {
   float: right;
   width: 115px;
   height: 35px;
@@ -103,7 +132,8 @@ h1 {
   border-width: 3px;
   border-top-color: lightpink;
   border-bottom-color: #b3e6fb;
-  border-left-color: navajowhite; }
+  border-left-color: navajowhite;
+  border-right-color: lightgrey; }
 
 @-webkit-keyframes spin {
   0% {

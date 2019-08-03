@@ -2,7 +2,9 @@ const url = 'http://localhost:4000/api/task'
 
 window.onload = function(){
   getData();
+  createButtonToAddAnItem()
 }
+
 
 
 function getData(check) {
@@ -24,16 +26,16 @@ function fadeElementsOnLoad(data) {
 }
 
 function displayTask(data) {
-    var ul = document.getElementById('list');
-    var li = document.createElement('li');
-    ul.appendChild(li);
-    var title = data.title;
-    var importance = data.importance;
-    li.setAttribute('id', data.id)
-    setImportance(li, importance);
-    adCheckbox(li);
-    addTextToList(li, title);
-    removeLoader()
+  var ul = document.getElementById('list');
+  var li = document.createElement('li');
+  var title = data.title;
+  var importance = data.importance;
+  ul.appendChild(li);
+  li.setAttribute('id', data.id)
+  setImportance(li, importance);
+  adCheckbox(li);
+  addTextToList(li, title);
+  removeLoader()
   checkIsDone(li, data)
 }
 
@@ -41,14 +43,6 @@ function addTextToList(li, title) {
   var text = li.appendChild(document.createElement('div'));
   text.className = 'title'
   text.appendChild(document.createTextNode(title));
-}
-
-function adCheckbox(li){  
-  var button = li.appendChild(document.createElement('button'));
-  button.innerHTML = "<div class='tick-box'>✓<div>"
-  button.setAttribute("onclick", tickUntickCheckbox);
-  button.setAttribute("class", 'checkbox-button');
-  button.onclick = tickUntickCheckbox
 }
 
 function setImportance(text, imp) {
@@ -68,6 +62,18 @@ function removeLoader() {
   }
 }
 
+// ============
+//   CHECKBOX 
+// ============ 
+
+function adCheckbox(li){  
+  var button = li.appendChild(document.createElement('button'));
+  button.innerHTML = "<div class='tick-box'>✓<div>"
+  button.setAttribute("onclick", tickUntickCheckbox);
+  button.setAttribute("class", 'checkbox-button');
+  button.onclick = tickUntickCheckbox
+}
+
 function checkIsDone(li, data) {
   if (data.isDone == 'true'){
     li.classList.add('checked')
@@ -85,7 +91,6 @@ function tickUntickCheckbox() {
 }
 
 function editIsDone(item, trueFalse){
-console.log("item", item.parentNode)
   var patchData = {
     method: 'PATCH', 
     body: JSON.stringify({'isDone': trueFalse}),
@@ -100,8 +105,71 @@ console.log("item", item.parentNode)
     )
 }
 
+// ============
+// ADD NEW ITEM 
+// ============ 
 
+function createButtonToAddAnItem() {
+  var header = document.getElementsByTagName('header')[0]
+  var button = header.appendChild(document.createElement('button'));
+  button.innerHTML = " + Add item"
+  button.setAttribute("onclick", addNewItem);
+  button.setAttribute("id", 'add-item-button');
+  button.onclick = addNewItem
+}
 
+function addNewItem() {
+  addANewItem()
+  createInput()
+  createDoneButton()
+  createSelectBox()
+  hideAddItemButton()
+}
+  
+function addANewItem() {
+  var header = document.getElementsByTagName('header')[0]
+  var newItem = header.appendChild(document.createElement('div'))
+  header.setAttribute("id", "newItem")
+  newItem.id = "new-item"
+}
+
+function createInput() {
+  var newItem = document.getElementById('new-item')
+  var textBox = newItem.appendChild(document.createElement('input'))
+  textBox.autofocus = true;
+  textBox.setAttribute('placeholder', 'Type slowly')
+  textBox.setAttribute('value', '')
+}
+
+function createDoneButton() {
+  var newItem = document.getElementById('new-item')
+  var button = newItem.appendChild(document.createElement('button'))
+  button.id = "add-new-item-button"
+  button.innerHTML = "+"
+}
+
+function createSelectBox() {
+  var newItem = document.getElementById('new-item')
+  var select = newItem.appendChild(document.createElement('select'))
+  select.id = "importance-selector"
+  for (var i = 0; i <= 2; i++) {
+    var option = select.appendChild(document.createElement('option'))
+    option.setAttribute("value", i)
+    if(i == '0'){
+      text = "high"
+    }if(i == '1'){
+      text = 'med'
+    }if(i == '2'){
+      text = 'low' 
+    }
+    option.innerHTML = text
+  }
+}
+
+function hideAddItemButton(argument) {
+  var button = document.getElementById('add-item-button')
+  button.remove()
+}
 
 {
   console && console.log('%c careers@stormid.com ', 'background: #272727; color: #ffffff');

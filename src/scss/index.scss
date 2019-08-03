@@ -21,9 +21,9 @@ $loader-2: 3px solid white;
 
 @for $i from 1 through length($colors) {
  .imp-#{$i}  {
-    background: nth($colors, $i);
-    border-left: 5px solid nth($border-colors, $i);
-  }
+  background: nth($colors, $i);
+  border-left: 5px solid nth($border-colors, $i);
+}
 }
 
 body{
@@ -35,11 +35,13 @@ body{
 
 header{
   border-top: $border-top-bottom;
-  padding: 40px 0;
+  padding-top: 25px;
+  min-height: 95px;
   font-size: 0.9rem;
+  position: relative;
 }
 
-footer, header, #loader-wrapper{
+footer, header, #loader-wrapper, #list{
   margin-left: auto;
   margin-right: auto;
   width: $list-width;
@@ -52,10 +54,7 @@ footer{
 }
 
 #list{
-  width: $list-width;
-  max-width: $list-max-width;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 0;
   padding: 0;
 }
 
@@ -65,10 +64,45 @@ ul{
   border-bottom: $border-top-bottom;
 }
 
-li{
+li, #new-item{
   padding: 8px 0;
   margin: 6px 0;
   font-weight: 600;
+}
+
+#new-item{
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 5px);
+  background: lightgrey;
+  border-left: 5px solid grey;
+  margin: 0;
+  input, #importance-selector{
+    height: 30px;
+    border: none;
+    background: none;
+    padding-left: 15px;
+    font-size: 1rem;
+    color: grey;
+  }
+}
+
+#add-new-item-button{
+  float: right;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: whitesmoke;
+}
+
+#importance-selector{
+  float: right;
+  border-radius: 25px;
+  border: none;
+}
+
+button:focus, input, #importance-selector {
+  outline: none !important;
 }
 
 button{
@@ -84,17 +118,17 @@ button{
 }
 
 button:focus, textarea {
-    outline: none !important;
+  outline: none !important;
 }
 
-#addItem{
+#add-item-button{
   float: right;
   width: 115px;
   height: 35px;
   border-radius: 35px;
   font-size: 1rem;
   padding: 0;
-}
+} 
 
 .title, h1{
   display: inline-flex;
@@ -140,6 +174,7 @@ h1{
   border-top-color: lightpink;
   border-bottom-color: #b3e6fb;
   border-left-color: navajowhite;
+  border-right-color: lightgrey;
 }
 
 @-webkit-keyframes spin {
