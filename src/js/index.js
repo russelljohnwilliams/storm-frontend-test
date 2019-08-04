@@ -8,7 +8,7 @@ var data = {
 
 window.onload = function(){
   getData();
-  createButtonToAddAnItem()
+  createButtonToAddAnItem();
 }
 
 // =============
@@ -20,21 +20,19 @@ function getData(check) {
   .then(response => response.json())
   .then(data => {
     if (check == 'new'){
-      removeElements(data) 
+      removeElements(data)
     }
     else{
       checkDataFirst(data)
-      // sortByImportance(data)
     }
   });
 }
 
 function checkDataFirst(data) {
-  console.log("data east", data.length)
   if(data.length == 0){
-    displayAnEmptyMessage()
+    displayAnEmptyMessage();
   }if (data.length > 0){
-    sortByImportance(data)
+    sortByImportance(data);
   }
 }
 
@@ -58,17 +56,17 @@ function fadeElementsOnLoad(data) {
 function displayTask(data) {
   var ul = document.getElementById('list');
   var li = document.createElement('li');
-  var title = data.title;
-  var importance = data.importance;
+  var title = data.title
+  var importance = data.importance
   ul.appendChild(li);
   li.style.opacity = '1'
-  li.setAttribute('id', data.id)
+  li.setAttribute('id', data.id);
   setImportance(li, importance);
   adCheckbox(li);
   addTextToList(li, title);
-  removeLoader()
-  checkIsDone(li, data)
-  createDeleteButton(li)
+  removeLoader();
+  checkIsDone(li, data);
+  createDeleteButton(li);
 
 }
 
@@ -83,14 +81,14 @@ function setImportance(text, imp) {
 }
 
 function removeLoader() {
-  var load = document.getElementById('loader')
+  var load = document.getElementById('loader');
   if(load != null){
     load.style.opacity = '0'
     load.style.height = "80px"
     load.style.width = "80px"
     load.style.left = "calc(50% - 40px)"
     setTimeout(function(){ 
-      load.remove()
+      load.remove();
     }, 600);
   }
 }
@@ -115,18 +113,18 @@ function adCheckbox(li){
 
 function checkIsDone(li, data) {
   if (data.isDone == 'true'){
-    li.classList.add('checked')
+    li.classList.add('checked');
   }
 }
 
 function tickUntickCheckbox() {
   if (this.parentNode.classList.contains('checked') == false){
-    this.parentNode.classList.add('checked')
-    editIsDone(this, 'true')
+    this.parentNode.classList.add('checked');
+    editIsDone(this, 'true');
   }else{
-    this.parentNode.classList.remove('checked')
-    editIsDone(this, 'false')
-  }
+    this.parentNode.classList.remove('checked');
+    editIsDone(this, 'false');
+  };
 }
 
 function editIsDone(item, trueFalse){
@@ -149,7 +147,7 @@ function editIsDone(item, trueFalse){
 // ====================
 
 function createButtonToAddAnItem() {
-  var header = document.getElementsByTagName('header')[0]
+  var header = document.getElementsByTagName('header')[0];
   var button = header.appendChild(document.createElement('button'));
   button.innerHTML = " <div class='plus'>+</div> <div class='text'>Add item</div>"
   button.setAttribute("onclick", addNewItem);
@@ -159,50 +157,50 @@ function createButtonToAddAnItem() {
 }
 
 function addNewItem() {
-  addANewItem()
-  createInput()
-  createDoneButton()
-  createSelectBox()
-  hideAnElement(this)
-  done()
+  addANewItem();
+  createInput();
+  createDoneButton();
+  createSelectBox();
+  hideAnElement(this);
+  done();
 }
 
 function addANewItem() {
-  var header = document.getElementsByTagName('header')[0]
-  var newItem = header.appendChild(document.createElement('div'))
-  header.setAttribute("id", "newItem")
+  var header = document.getElementsByTagName('header')[0];
+  var newItem = header.appendChild(document.createElement('div'));
+  header.setAttribute("id", "newItem");
   newItem.id = "new-item"
 }
 
 function createInput() {
-  var newItem = document.getElementById('new-item')
-  var textBox = newItem.appendChild(document.createElement('input'))
+  var newItem = document.getElementById('new-item');
+  var textBox = newItem.appendChild(document.createElement('input'));
   textBox.autofocus = true;
-  textBox.setAttribute('placeholder', 'Type slowly')
-  textBox.setAttribute('value', '')
+  textBox.setAttribute('placeholder', 'Type slowly');
+  textBox.setAttribute('value', '');
   textBox.id = "textInput"
 }
 
 function createDoneButton() {
   var newItem = document.getElementById('new-item')
-  var button = newItem.appendChild(document.createElement('button'))
+  var button = newItem.appendChild(document.createElement('button'));
   button.id = "add-new-item-button"
   button.innerHTML = "+"
 }
 
 function createSelectBox() {
-  var newItem = document.getElementById('new-item')
-  var select = newItem.appendChild(document.createElement('select'))
+  var newItem = document.getElementById('new-item');
+  var select = newItem.appendChild(document.createElement('select'));
   select.id = "importance-selector"
   for (var i = 0; i <= 2; i++) {
-    var option = select.appendChild(document.createElement('option'))
-    option.setAttribute("value", i)
+    var option = select.appendChild(document.createElement('option'));
+    option.setAttribute("value", i);
     if(i == '0'){
       text = "high"
     }if(i == '1'){
       text = 'med'
     }if(i == '2'){
-      text = 'low' 
+      text = 'low'
     }
     option.innerHTML = text
   }
@@ -211,7 +209,7 @@ function createSelectBox() {
 function hideAnElement(element){
   element.style.opacity = '0'
   setTimeout(function(){ 
-    element.remove()
+    element.remove();
   }, 200);
 }
 
@@ -226,8 +224,8 @@ function done() {
     data.title = text.value;
     data.importance = importance.value;
     addTask(text, importance.value);
-    hideAnElement(this.parentNode)
-    createButtonToAddAnItem()
+    hideAnElement(this.parentNode);
+    createButtonToAddAnItem();
   });
 }
 
@@ -249,7 +247,7 @@ function addTask(text, imp){
     )
   .then(getData('new')
     )
-  .catch(error => console.log('error is', error))
+  .catch(error => console.log('error is', error));
 } 
 
 
@@ -266,8 +264,8 @@ function createDeleteButton(li){
 }
 
 function deleteItem(){
-  deleteData(this.parentNode.id)
-  removeElements(this)
+  deleteData(this.parentNode.id);
+  removeElements(this);
 }
 
 function deleteData(value){
@@ -296,19 +294,18 @@ function removeElements(item) {
     if (i == num) clearInterval(interval);
   }, 100)
   setTimeout(function(){ 
-    deleteElements(num)
+    deleteElements(num);
   }, num * 110);
 }
 
 function deleteElements(num){
  for(var i = num - 1; i >= 0; i--){
-  list.childNodes[i].remove()
+  list.childNodes[i].remove();
 }
-getData()
+getData();
 }
 
 
-
-// {
-//   console && console.log('%c careers@stormid.com ', 'background: #272727; color: #ffffff');
-// }
+{
+  console && console.log('%c careers@stormid.com ', 'background: #272727; color: #ffffff');
+}
