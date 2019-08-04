@@ -11,16 +11,31 @@ window.onload = function(){
   createButtonToAddAnItem()
 }
 
+// =============
+// DISPLAY TASKS 
+// =============
+
 function getData(check) {
   fetch(url)
   .then(response => response.json())
   .then(data => {
     if (check == 'new'){
       removeElements(data) 
-    }else{
-      sortByImportance(data)
+    }
+    else{
+      checkDataFirst(data)
+      // sortByImportance(data)
     }
   });
+}
+
+function checkDataFirst(data) {
+  console.log("data east", data.length)
+  if(data.length == 0){
+    displayAnEmptyMessage()
+  }if (data.length > 0){
+    sortByImportance(data)
+  }
 }
 
 function sortByImportance(data) {
@@ -46,6 +61,7 @@ function displayTask(data) {
   var title = data.title;
   var importance = data.importance;
   ul.appendChild(li);
+  li.style.opacity = '1'
   li.setAttribute('id', data.id)
   setImportance(li, importance);
   adCheckbox(li);
@@ -53,6 +69,7 @@ function displayTask(data) {
   removeLoader()
   checkIsDone(li, data)
   createDeleteButton(li)
+
 }
 
 function addTextToList(li, title) {
@@ -68,7 +85,7 @@ function setImportance(text, imp) {
 function removeLoader() {
   var load = document.getElementById('loader')
   if(load != null){
-    load.style.opacity = 0
+    load.style.opacity = '0'
     load.style.height = "80px"
     load.style.width = "80px"
     load.style.left = "calc(50% - 40px)"
@@ -76,6 +93,12 @@ function removeLoader() {
       load.remove()
     }, 600);
   }
+}
+
+function displayAnEmptyMessage() {
+  var messageArea = document.getElementById('list');
+  var text = messageArea.innerHTML = "<div id='no-tasks'>CONGRATULATIONS!!!<br>There are no tasks for you to complete<br>Please add some more fun tasks to work on</div>"
+
 }
 
 // ============
@@ -128,10 +151,11 @@ function editIsDone(item, trueFalse){
 function createButtonToAddAnItem() {
   var header = document.getElementsByTagName('header')[0]
   var button = header.appendChild(document.createElement('button'));
-  button.innerHTML = " + Add item"
+  button.innerHTML = " <div class='plus'>+</div> <div class='text'>Add item</div>"
   button.setAttribute("onclick", addNewItem);
   button.setAttribute("id", 'add-item-button');
   button.onclick = addNewItem
+
 }
 
 function addNewItem() {
@@ -139,7 +163,7 @@ function addNewItem() {
   createInput()
   createDoneButton()
   createSelectBox()
-  removeAnElement(this)
+  hideAnElement(this)
   done()
 }
 
@@ -184,11 +208,11 @@ function createSelectBox() {
   }
 }
 
-function removeAnElement(element){
-  element.style.opacity = 0
+function hideAnElement(element){
+  element.style.opacity = '0'
   setTimeout(function(){ 
-  element.remove()
-  }, 300);
+    element.remove()
+  }, 200);
 }
 
 // ============================
@@ -202,7 +226,7 @@ function done() {
     data.title = text.value;
     data.importance = importance.value;
     addTask(text, importance.value);
-    removeAnElement(this.parentNode)
+    hideAnElement(this.parentNode)
     createButtonToAddAnItem()
   });
 }
@@ -282,6 +306,9 @@ function deleteElements(num){
 }
 getData()
 }
+
+
+
 // {
 //   console && console.log('%c careers@stormid.com ', 'background: #272727; color: #ffffff');
 // }
