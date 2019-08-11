@@ -35,8 +35,7 @@ body{
 header{
   border-top: $border-top-bottom;
   padding-top: 25px;
-  min-height: 95px;
-  // font-size: 0.9rem;
+  min-height: 90px;
   position: relative;
 }
 
@@ -138,6 +137,8 @@ li, #new-item{
  box-shadow: $box-shadow;
  position: relative;
  z-index: 2;
+ min-height: 100px;
+ padding-top: 50px;
 }
 
 // =========
@@ -249,16 +250,4 @@ button:focus, textarea {
   opacity: 1;
   transition: opacity 299ms linear;
 } 
-
-
-
-
-
-
-
-
-
-
-
-
 

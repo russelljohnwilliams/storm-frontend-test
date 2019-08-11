@@ -20,15 +20,15 @@ function getData(check) {
   .then(response => response.json())
   .then(data => {
     if (check == 'new'){
-      removeElements(data)
+      clearElements(data)
     }
     else{
-      checkDataFirst(data)
+      checkData(data)
     }
   });
 }
 
-function checkDataFirst(data) {
+function checkData(data) {
   if(data.length == 0){
     displayAnEmptyMessage();
   }if (data.length > 0){
@@ -67,7 +67,6 @@ function displayTask(data) {
   removeLoader();
   checkIsDone(li, data);
   createDeleteButton(li);
-
 }
 
 function addTextToList(li, title) {
@@ -95,8 +94,11 @@ function removeLoader() {
 
 function displayAnEmptyMessage() {
   var messageArea = document.getElementById('list');
-  var text = messageArea.innerHTML = "<div id='no-tasks'>CONGRATULATIONS!!!<br>There are no tasks for you to complete<br>Please add some more fun tasks to work on</div>"
-
+  var listTask = messageArea.appendChild(document.createElement('li'))
+  var noTask = listTask.appendChild(document.createElement('div'))
+  noTask.id = 'no-tasks'
+  noTask.innerHTML = "There are no tasks for you to complete<br>Please add some more fun tasks to work on"
+  listTask.style.opacity = '1'
 }
 
 // ============
@@ -142,18 +144,22 @@ function editIsDone(item, trueFalse){
     )
 }
 
-// ====================
-// ADD NEW ITEM - Build
-// ====================
+// ============
+// ADD NEW ITEM
+// ============
 
 function createButtonToAddAnItem() {
   var header = document.getElementsByTagName('header')[0];
   var button = header.appendChild(document.createElement('button'));
-  button.innerHTML = " <div class='plus'>+</div> <div class='text'>Add item</div>"
+  var plus = button.appendChild(document.createElement('div'))
+  plus.className = 'plus';
+  plus.innerHTML = '+'
+  var text = button.appendChild(document.createElement('div'))
+  text.className = 'text'
+  text.innerHTML = 'Add item'
   button.setAttribute("onclick", addNewItem);
   button.setAttribute("id", 'add-item-button');
   button.onclick = addNewItem
-
 }
 
 function addNewItem() {
@@ -177,6 +183,7 @@ function createInput() {
   var textBox = newItem.appendChild(document.createElement('input'));
   textBox.autofocus = true;
   textBox.setAttribute('placeholder', 'Type slowly');
+  textBox.setAttribute('autofocus', 'autofocus');
   textBox.setAttribute('value', '');
   textBox.id = "textInput"
 }
@@ -212,10 +219,6 @@ function hideAnElement(element){
     element.remove();
   }, 200);
 }
-
-// ============================
-// ADD NEW ITEM - functionality
-// ============================
 
 function done() {
   document.getElementById("add-new-item-button").addEventListener("click", function(){
@@ -265,7 +268,7 @@ function createDeleteButton(li){
 
 function deleteItem(){
   deleteData(this.parentNode.id);
-  removeElements(this);
+  clearElements(this);
 }
 
 function deleteData(value){
@@ -285,7 +288,7 @@ function deleteData(value){
     )
 } 
 
-function removeElements(item) {
+function clearElements(item) {
   var num = list.childNodes.length
   var i = 0;
   var interval = setInterval(function() {
