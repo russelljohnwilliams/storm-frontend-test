@@ -7,7 +7,6 @@ header {
   border-top: solid black 7px;
   padding-top: 25px;
   min-height: 95px;
-  font-size: 0.9rem;
   position: relative; }
 
 .title, h1 {
@@ -28,7 +27,6 @@ footer {
   font-size: 0.8rem; }
 
 #loader {
-  opacity: 1;
   position: absolute;
   left: calc(50% - (50px / 2));
   top: 25%;
@@ -38,6 +36,7 @@ footer {
   height: 50px;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
+  opacity: 1;
   transition-property: opacity, height, width, left;
   transition-duration: 700ms;
   border-style: solid;
@@ -81,28 +80,25 @@ ul {
 li, #new-item {
   padding: 8px 0;
   margin: 6px 0;
-  font-weight: 600;
   opacity: 0;
   transition: opacity 100ms linear; }
 
 #no-tasks {
   text-align: center;
   margin: 30px 0;
-  font-weight: 600;
   color: teal;
   font-size: 1.1rem;
   background: whitesmoke;
   padding: 20px 0;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.28);
-  -moz-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.28);
+  -webkit-box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 2; }
 
 .tick-box {
   font-size: 1rem;
-  font-weight: 600;
   color: white; }
 
 .checked {
@@ -116,8 +112,8 @@ button:focus, input, #importance-selector {
 button {
   display: inline-block;
   margin: 0 10px;
-  -webkit-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.28);
-  -moz-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.28);
+  -webkit-box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.2);
   border: none;
   padding: 0;
@@ -153,26 +149,27 @@ button:focus, textarea {
     border: none;
     background: none;
     padding-left: 15px;
-    font-size: 1rem;
     color: grey; }
+  #new-item input {
+    font-size: 1rem; }
 
 #add-new-item-button, .delete-button {
   float: right;
   border-radius: 25px;
   font-size: 1rem;
-  font-weight: 600;
   background: whitesmoke; }
 
 #importance-selector {
   float: right;
   border-radius: 25px;
+  font-size: 0.9rem;
   border: none; }
 
 #add-item-button {
   float: right;
   width: 115px;
   height: 35px;
-  border-radius: 35px;
+  border-radius: 25px;
   font-size: 1rem;
   padding: 0;
   opacity: 1;
