@@ -120,7 +120,8 @@ button {
   border: none;
   padding: 0;
   height: 30px;
-  width: 30px; }
+  width: 30px;
+  background: white; }
 
 button:focus, textarea {
   outline: none !important; }
